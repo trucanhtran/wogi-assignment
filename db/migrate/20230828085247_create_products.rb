@@ -8,8 +8,8 @@ class CreateProducts < ActiveRecord::Migration[7.0]
       t.decimal :price, precision: 10, scale: 2
       t.decimal :discount_percentage, precision: 5, scale: 2
       t.float :rating
-      t.boolean :availability
-      t.references :brand, null: false, foreign_key: true
+      t.boolean :availability, default: true
+      t.references :brand, foreign_key: true
 
       t.timestamps
     end

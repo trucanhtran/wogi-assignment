@@ -115,6 +115,15 @@ module Api
             { error: e.message }
           end
 
+          desc "Product create"
+          params do
+            requires :name, type: String, desc: "Name"
+          end
+          post 'product' do
+            product = Product.new(name: params[:name], brand_id: 1)
+            product.save!
+            product
+          end
         end
       end
     end

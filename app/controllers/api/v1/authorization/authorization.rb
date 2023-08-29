@@ -10,15 +10,18 @@ module Api
             requires :password_confirmation, type: String, desc: 'Type password confirmation'
           end
           post :register do
-            user = User.new(email: params[:email])
-            user.password = params[:password]
+            user = User.new(user_params)
             if user.save
               status 200
               user
             else
-              status 400
-              { error: 'Invalid email address or password' }
+              response_error('401 Unauthorized', 401)
             end
+          end
+
+          desc "Get a current user"
+          get 'detail' do
+            current_user || response_error('401 Unauthorized', 401)
           end
 
           desc 'Login with email and password'
@@ -29,13 +32,18 @@ module Api
           post :login do
             user = User.find_by(email: params[:email])
             if user.authenticate(params[:password])
-              jwt = Auth.encode({user: user.id})
+              jwt = Auth.encode({user_id: user.id})
               status 200
               { jwt: jwt }
             else
-              status 401
-              { error: 'Invalid email or password' }
+              response_error('401 Unauthorized', 401)
             end
+          end
+        end
+
+        helpers do
+          def user_params
+            parameters.permit(:email, :password, :password_confirmation)
           end
         end
       end
