@@ -14,7 +14,7 @@ module Api
             optional :availability, type: Boolean, desc: 'Type availability'
           end
           put ':id/update' do
-            brand = User.find_by(id: 1).brands.find_by(id: params[:id])
+            brand = current_user.brands.find_by(id: params[:id])
             if brand.present? && brand.update(brand_params)
               brand
             else

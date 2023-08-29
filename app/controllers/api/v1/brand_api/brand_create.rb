@@ -13,7 +13,7 @@ module Api
             optional :availability, type: Boolean, desc: 'Type availability'
           end
           post :create do
-            brand = User.find_by(id: 1).brands.new(brand_params)
+            brand = current_user.brands.new(brand_params)
             if brand.save
               brand
             else
