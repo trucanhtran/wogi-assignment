@@ -41,9 +41,9 @@ module Api
         end
       end
 
-			mount Api::V1::Authorization::Authorization
-      mount Api::V1::Brand::Brand
-      mount Api::V1::Product::Product
+			mount Api::V1::Authorization::Root
+      mount Api::V1::BrandApi::Root
+      mount Api::V1::ProductApi::Root
       mount Api::V1::State::State
     end
   end
