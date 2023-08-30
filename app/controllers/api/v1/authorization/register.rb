@@ -17,6 +17,8 @@ module Api
             else
               response_error('Can not register a new user', 400)
             end
+          rescue => e
+            response_error(e.message, 500)
           end
         end
       end

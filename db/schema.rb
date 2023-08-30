@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_08_28_103855) do
+ActiveRecord::Schema[7.0].define(version: 2023_08_30_092705) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -29,7 +29,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_28_103855) do
     t.string "website"
     t.integer "established_year"
     t.string "location"
-    t.boolean "availability", default: true
+    t.boolean "availability"
     t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -44,6 +44,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_28_103855) do
     t.datetime "cancelled_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "user_id", null: false
+    t.index ["user_id"], name: "index_cards_on_user_id"
   end
 
   create_table "products", force: :cascade do |t|
@@ -74,6 +76,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_28_103855) do
   create_table "users", force: :cascade do |t|
     t.string "email"
     t.string "password_digest"
+    t.string "user_type"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -81,6 +84,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_28_103855) do
   add_foreign_key "access_controls", "products"
   add_foreign_key "access_controls", "users"
   add_foreign_key "brands", "users"
+  add_foreign_key "cards", "users"
   add_foreign_key "products", "brands"
   add_foreign_key "reportings", "cards"
   add_foreign_key "reportings", "users"

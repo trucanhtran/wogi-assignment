@@ -45,6 +45,8 @@ module Api
       mount Api::V1::BrandApi::Root
       mount Api::V1::ProductApi::Root
       mount Api::V1::State::Root
+      mount Api::V1::AccessControlApi::Root
+      mount Api::V1::CardApi::Root
     end
   end
 end
