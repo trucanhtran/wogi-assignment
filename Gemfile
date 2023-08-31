@@ -88,3 +88,5 @@ gem 'grape-entity', '~> 1.0'
 # Gem authentication
 gem 'jwt', '~> 2.7', '>= 2.7.1'
 gem 'bcrypt', '~> 3.1', '>= 3.1.19'
+gem 'money-rails', '~> 1.12'
+gem 'byebug'

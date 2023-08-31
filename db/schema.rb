@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_08_30_092705) do
+ActiveRecord::Schema[7.0].define(version: 2023_08_31_091459) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -53,7 +53,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_30_092705) do
     t.text "description"
     t.string "category"
     t.integer "stock_quantity"
-    t.decimal "price", precision: 10, scale: 2
+    t.integer "price_cents", default: 0, null: false
+    t.string "price_currency", default: "USD", null: false
     t.decimal "discount_percentage", precision: 5, scale: 2
     t.float "rating"
     t.boolean "availability", default: true
@@ -69,7 +70,11 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_30_092705) do
     t.string "activity"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "product_id", null: false
+    t.decimal "value", precision: 10, scale: 2
+    t.integer "purchase_id"
     t.index ["card_id"], name: "index_reportings_on_card_id"
+    t.index ["product_id"], name: "index_reportings_on_product_id"
     t.index ["user_id"], name: "index_reportings_on_user_id"
   end
 
@@ -79,6 +84,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_30_092705) do
     t.string "user_type"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.float "payout_rate"
   end
 
   add_foreign_key "access_controls", "products"
@@ -87,5 +93,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_30_092705) do
   add_foreign_key "cards", "users"
   add_foreign_key "products", "brands"
   add_foreign_key "reportings", "cards"
+  add_foreign_key "reportings", "products"
   add_foreign_key "reportings", "users"
 end

@@ -10,7 +10,8 @@ module Api
             optional :description, type: String, desc: 'Description of the product'
             optional :category, type: String, desc: 'Category of the product'
             optional :stock_quantity, type: Integer, desc: 'Stock quantity of the product'
-            optional :price, type: Float, desc: 'Price of the product'
+            requires :price, type: Float, desc: 'Price of the product'
+            optional :price_currency, type: String, desc: 'Curency of price, e.g. USD, EUR, SGD, CNY, VND, etc'
             optional :discount_percentage, type: Float, desc: 'Discount percentage of the product'
             optional :brand_id, type: Integer, desc: 'ID of the associated brand'
             optional :availability, type: Boolean, desc: 'Type availability'
@@ -20,6 +21,8 @@ module Api
             brand || response_error('Can not find brand', 400)
 
             product = brand.products.new(product_params)
+            price_currency = params[:price_currency] || 'USD'
+            product.price = Money.new(params[:price], price_currency)
             if brand.present? && product.save
               product
             else

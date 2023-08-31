@@ -5,7 +5,7 @@ class CreateProducts < ActiveRecord::Migration[7.0]
       t.text :description
       t.string :category
       t.integer :stock_quantity
-      t.decimal :price, precision: 10, scale: 2
+      t.monetize :price
       t.decimal :discount_percentage, precision: 5, scale: 2
       t.float :rating
       t.boolean :availability, default: true

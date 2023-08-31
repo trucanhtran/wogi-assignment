@@ -15,7 +15,11 @@ module Api
         end
 
         def authenticate
-          current_user.present?
+          if current_user.present?
+            current_user.present?
+          else
+            response_error
+          end
         end
 
         def response_error(message='401 Unauthorized', status = 401)
@@ -47,6 +51,8 @@ module Api
       mount Api::V1::State::Root
       mount Api::V1::AccessControlApi::Root
       mount Api::V1::CardApi::Root
+      mount Api::V1::ReportApi::Root
+      mount Api::V1::ClientApi::Root
     end
   end
 end
