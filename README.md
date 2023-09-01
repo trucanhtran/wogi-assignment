@@ -36,4 +36,4 @@
 
 ### Step2:
 
-`docker compose run web rails db:migrate RAILS_ENV=test` #Generate database for test env
+`docker-compose run web rspec` #Run Rspec to test API
