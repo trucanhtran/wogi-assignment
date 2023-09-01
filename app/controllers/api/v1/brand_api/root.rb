@@ -13,6 +13,10 @@ module Api
         end
       end
 
+      before do
+        is_admin
+      end
+
       mount Api::V1::BrandApi::BrandRead
       mount Api::V1::BrandApi::BrandCreate
       mount Api::V1::BrandApi::BrandUpdate

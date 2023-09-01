@@ -7,6 +7,10 @@ module Api
         authenticate
       end
 
+      before do
+        is_admin
+      end
+
       helpers do
         def product_params
           parameters.permit(:name, :description, :category, :stock_quantity, :price, :discount_percentage, :availability)

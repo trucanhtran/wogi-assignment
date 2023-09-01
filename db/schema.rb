@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_08_31_091459) do
+ActiveRecord::Schema[7.0].define(version: 2023_09_01_094604) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -37,14 +37,16 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_31_091459) do
   end
 
   create_table "cards", force: :cascade do |t|
-    t.string "card_number"
-    t.string "unique_activation_number"
+    t.bigint "product_id"
+    t.bigint "user_id"
+    t.decimal "value", precision: 10, scale: 2, null: false
+    t.string "code", null: false
     t.string "purchase_details_pin"
-    t.boolean "cancelled"
+    t.boolean "cancelled", default: false
     t.datetime "cancelled_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "user_id", null: false
+    t.index ["product_id"], name: "index_cards_on_product_id"
     t.index ["user_id"], name: "index_cards_on_user_id"
   end
 
@@ -64,20 +66,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_31_091459) do
     t.index ["brand_id"], name: "index_products_on_brand_id"
   end
 
-  create_table "reportings", force: :cascade do |t|
-    t.bigint "user_id"
-    t.bigint "card_id"
-    t.string "activity"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.bigint "product_id", null: false
-    t.decimal "value", precision: 10, scale: 2
-    t.integer "purchase_id"
-    t.index ["card_id"], name: "index_reportings_on_card_id"
-    t.index ["product_id"], name: "index_reportings_on_product_id"
-    t.index ["user_id"], name: "index_reportings_on_user_id"
-  end
-
   create_table "users", force: :cascade do |t|
     t.string "email"
     t.string "password_digest"
@@ -85,14 +73,13 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_31_091459) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.float "payout_rate"
+    t.boolean "admin", default: false
   end
 
   add_foreign_key "access_controls", "products"
   add_foreign_key "access_controls", "users"
   add_foreign_key "brands", "users"
+  add_foreign_key "cards", "products"
   add_foreign_key "cards", "users"
   add_foreign_key "products", "brands"
-  add_foreign_key "reportings", "cards"
-  add_foreign_key "reportings", "products"
-  add_foreign_key "reportings", "users"
 end

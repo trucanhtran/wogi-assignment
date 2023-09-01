@@ -18,6 +18,14 @@ module Api
           current_user || response_error
         end
 
+        def is_admin
+          current_user.admin? || response_error('403 Deny Access', 403)
+        end
+
+        def is_client
+          current_user.user_type == 'client' || response_error('403 Deny Access', 403)
+        end
+
         def response_error(message='401 Unauthorized', status = 401)
           error!(message, status)
         end

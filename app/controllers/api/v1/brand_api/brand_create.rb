@@ -15,6 +15,7 @@ module Api
           post :create do
             brand = current_user.brands.new(brand_params)
             if brand.save
+              status 200
               brand
             else
               response_error('Can not create a new brand', 400)

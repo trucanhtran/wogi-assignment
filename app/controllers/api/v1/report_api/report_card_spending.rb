@@ -5,16 +5,12 @@ module Api
         namespace :report do
           desc 'Generate comprehensive spending report'
           get 'comprehensive_spending' do
-            spending_reports = current_user.reportings
-
-            total_spent = spending_reports.sum(:value)
-            report_details = spending_reports.select(:id, :activity, :value, :card_id, :product_id)
+            user = current_user
+            user_cards = Card.where(user_id: user.id).select(:id, :code, :value)
+            total_spending = Product.where(id: user_cards.pluck(:product_id)).sum(:price_cents)
 
             status 200
-            {
-              total_spent: total_spent,
-              report_details: report_details
-            }
+            {total_spending: total_spending, used_cards: user_cards}
           rescue => e
             response_error(e.message, 500)
           end

@@ -8,6 +8,7 @@ module Api
             requires :email, type: String, desc: 'Type email address'
             requires :password, type: String, desc: 'Type password'
             requires :password_confirmation, type: String, desc: 'Type password confirmation'
+            optional :admin, type: Boolean, desc: 'Type availability'
           end
           post :register do
             user = User.new(user_params)

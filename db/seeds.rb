@@ -10,6 +10,11 @@
 ActiveRecord::Base.connection.execute('TRUNCATE TABLE users cascade;')
 ActiveRecord::Base.connection.reset_pk_sequence!('users')
 
+admin = User.create(email: "admin@gmail.com", password: "12345678", password_confirmation: "12345678", admin: true)
+p "Create admin successfully"
+
+client = User.create(email: "client@gmail.com", password: "12345678", password_confirmation: "12345678", user_type: 'client')
+p "Create client successfully"
 
 (1..10).each do |index|
   begin

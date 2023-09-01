@@ -8,9 +8,9 @@ module Api
       end
 
       mount Api::V1::CardApi::CardRequest
-      mount Api::V1::CardApi::CardActivation
-      mount Api::V1::CardApi::CardList
       mount Api::V1::CardApi::CardCancellation
+
+      mount Api::V1::CardApi::CardCreate
     end
   end
 end

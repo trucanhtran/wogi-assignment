@@ -5,10 +5,12 @@ module Api
         namespace :access_control do
           desc 'Delete product access for the client'
           params do
+            requires :user_id, type: Integer, desc: 'ID of the customer'
             requires :product_id, type: Integer, desc: 'ID of the product'
           end
           delete 'products/:product_id' do
-            access_control = current_user.access_controls.find_by(product_id: params[:product_id])
+            client = User.where(user_type: 'client').find(params[:user_id])
+            access_control = client.access_controls.find_by(product_id: params[:product_id])
             if access_control
               access_control.destroy
               status 201

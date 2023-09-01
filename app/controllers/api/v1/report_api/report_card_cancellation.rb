@@ -5,9 +5,10 @@ module Api
         namespace :report do
           desc 'Generate card cancellation report for current user'
           get 'cards_cancellation' do
-            cancellation_report = current_user.cards.where(cancelled: true)
-            formatted_report = cancellation_report.select(:card_number, :cancelled_at, :created_at)
-            
+            user = current_user
+            cancellation_report = Card.where(cancelled: true, user_id: user.id)
+            formatted_report = cancellation_report.select(:code, :cancelled_at, :created_at)
+
             status 200
             { report: formatted_report }
           end

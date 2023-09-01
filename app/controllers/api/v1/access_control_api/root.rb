@@ -7,9 +7,12 @@ module Api
         authenticate
       end
 
+      before do
+        is_admin
+      end
+
       mount Api::V1::AccessControlApi::ProductAccessList
       mount Api::V1::AccessControlApi::ProductAccessUpdate
-      mount Api::V1::AccessControlApi::ProductAccessAdmin
       mount Api::V1::AccessControlApi::ProductAccessDelete
     end
   end

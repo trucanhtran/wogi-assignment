@@ -7,6 +7,10 @@ module Api
         authenticate
       end
 
+      before do
+        is_admin
+      end
+
       mount Api::V1::ClientApi::ClientCreate
       mount Api::V1::ClientApi::ClientList
     end
