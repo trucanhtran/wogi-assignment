@@ -15,11 +15,7 @@ module Api
         end
 
         def authenticate
-          if current_user.present?
-            current_user.present?
-          else
-            response_error
-          end
+          current_user || response_error
         end
 
         def response_error(message='401 Unauthorized', status = 401)

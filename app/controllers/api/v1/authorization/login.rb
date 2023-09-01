@@ -10,8 +10,9 @@ module Api
           end
           post :login do
             user = User.find_by(email: params[:email])
-            if user.authenticate(params[:password])
+            if user.present? && user.authenticate(params[:password])
               jwt = Auth.encode({user_id: user.id})
+              status 200
               { jwt: jwt }
             else
               response_error('401 Unauthorized', 401)
