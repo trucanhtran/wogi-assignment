@@ -1,24 +1,39 @@
-# README
+## How to run
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+### Step1:
 
-Things you may want to cover:
+`docker-compose build` #build docker-compose
 
-* Ruby version
+### Step2:
 
-* System dependencies
+`docker-compose run web bundle` #install Rails
 
-* Configuration
+### Step3:
 
-* Database creation
+`docker-compose run web rails db:create` #Generate database
 
-* Database initialization
+### Step4:
 
-* How to run the test suite
+`docker-compose run web rails db:migrate` #Run migration to create tables and columns
 
-* Services (job queues, cache servers, search engines, etc.)
+### Step5:
 
-* Deployment instructions
+`docker-compose run wesb rails db:seed` #Create seed for users
 
-* ...
+### Step6:
+
+`docker-compose up` #Run container to run website
+
+### Step7:
+
+`localhost:3000`
+
+## How to run test
+
+### Step1:
+
+`docker compose run web rails db:migrate RAILS_ENV=test` #Generate database for test env
+
+### Step2:
+
+`docker compose run web rails db:migrate RAILS_ENV=test` #Generate database for test env
