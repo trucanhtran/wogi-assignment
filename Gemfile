@@ -49,6 +49,7 @@ gem "bootsnap", require: false
 # gem "image_processing", "~> 1.2"
 
 group :development, :test do
+  gem 'pry'
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "debug", platforms: %i[ mri mingw x64_mingw ]
 end
@@ -76,6 +77,7 @@ group :test do
   gem 'factory_bot_rails'
   gem 'rspec-json_matcher'
   gem 'rspec-rails'
+  gem 'database_rewinder'
 end
 
 
@@ -83,3 +85,9 @@ end
 gem 'grape', '~> 1.7', '>= 1.7.1'
 gem 'grape_on_rails_routes', '~> 0.3.2'
 gem 'grape-entity', '~> 1.0'
+
+# Gem authentication
+gem 'jwt', '~> 2.7', '>= 2.7.1'
+gem 'bcrypt', '~> 3.1', '>= 3.1.19'
+gem 'money-rails', '~> 1.12'
+gem 'byebug'
